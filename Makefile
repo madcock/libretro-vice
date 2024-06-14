@@ -357,6 +357,21 @@ else ifeq ($(platform), gcw0)
    COMMONFLAGS += -DHAVE_SYS_TYPES_H -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L
    CFLAGS += -std=c99
 
+# SF2000
+else ifeq ($(platform), sf2000)
+   TARGET := $(TARGET_NAME)_libretro_$(platform).a
+   MIPS:=/opt/mips32-mti-elf/2019.09-03-2/bin/mips-mti-elf-
+   CC = $(MIPS)gcc
+   CXX = $(MIPS)g++
+   AR = $(MIPS)ar
+   CFLAGS = -EL -march=mips32 -mtune=mips32 -msoft-float -G0 -mno-abicalls -fno-pic
+   CFLAGS += -ffast-math -fomit-frame-pointer -ffunction-sections -fdata-sections 
+   CFLAGS += -I../..
+   CFLAGS += -DHAVE_CXX11=1
+   CFLAGS += -DSF2000
+   CXXFLAGS = $(CFLAGS)
+   STATIC_LINKING = 1
+
 # ARM
 else ifneq (,$(findstring armv,$(platform)))
    TARGET := $(TARGET_NAME)_libretro.so
@@ -428,7 +443,11 @@ OBJECTS     := $(addprefix $(OBJDIR)/,$(OBJECTS))
 # Do not enforce C99 as some gcc-versions appear to not handle system-headers
 # properly in that case.
 #CFLAGS      += -std=c99
+ifeq ($(platform), sf2000)
+CXXFLAGS    += -std=c++11
+else
 CXXFLAGS    += -std=c++98
+endif
 
 ifeq ($(platform), theos_ios)
 	COMMON_FLAGS := -DIOS -DARM $(COMMON_DEFINES) $(INCFLAGS) -I$(THEOS_INCLUDE_PATH) -Wno-error

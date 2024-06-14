@@ -53,7 +53,11 @@ extern unsigned int opt_audio_leak_volume;
 #define NOISE_VOLUME            (0.15f * TOTAL_VOLUME)
 #define LUMALINES_VOLUME        (1.00f * TOTAL_VOLUME)
 
+#if !defined(SF2000)
 #define NOISE_RATE              (44100)
+#else
+#define NOISE_RATE              (22050)
+#endif
 #define LUMALINES_RATE          (15000)
 
 #define MAX_LUMALINES   512 /* maximum height of picture */

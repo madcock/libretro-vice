@@ -64,9 +64,13 @@ static int mp3_output_sample_pos = 0;
 static int mp3_err = MPG123_OK;
 static mpg123_handle *mh = NULL;
 
+#if !defined(SF2000)
 static int mp3_output_rate = 44100;
-
 static int mp3_input_rate = 44100;
+#else
+static int mp3_output_rate = 22050;
+static int mp3_input_rate = 22050;
+#endif
 static int mp3_input_channels = 1;
 static int mp3_input_pointer = 0;
 static int mp3_input_frame_size = 0;

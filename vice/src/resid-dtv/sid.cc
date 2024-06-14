@@ -107,7 +107,11 @@ SID::SID()
   voice[1].set_sync_source(&voice[0]);
   voice[2].set_sync_source(&voice[1]);
 
+#if !defined(SF2000)
   set_sampling_parameters(985248, SAMPLE_FAST, 44100);
+#else
+  set_sampling_parameters(985248, SAMPLE_FAST, 22050);
+#endif
 
   bus_value = 0;
 

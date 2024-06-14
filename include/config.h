@@ -93,8 +93,10 @@
 /* FastSID */
 #define HAVE_FASTSID
 
-/* This version provides ReSID support. */
-#define HAVE_RESID 
+#if !defined(SF2000)
+ /* This version provides ReSID support. */
+ #define HAVE_RESID
+#endif
 
 /* Define to 1 if you have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1

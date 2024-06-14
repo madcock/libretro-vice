@@ -68,8 +68,13 @@ static void portaudio_start_stream(void)
         inputParameters.hostApiSpecificStreamInfo = NULL;
         sound_cycles_per_frame = machine_get_cycles_per_frame();
         sound_frames_per_sec = machine_get_cycles_per_second() / sound_cycles_per_frame;
+#if !defined(SF2000)
         sound_samples_per_frame = 44100 / sound_frames_per_sec;
         err = Pa_OpenStream(&stream, &inputParameters, NULL, 44100, sound_samples_per_frame, paClipOff, NULL, NULL);
+#else
+        sound_samples_per_frame = 22050 / sound_frames_per_sec;
+        err = Pa_OpenStream(&stream, &inputParameters, NULL, 22050, sound_samples_per_frame, paClipOff, NULL, NULL);
+#endif
         if (err == paNoError) {
             err = Pa_StartStream(stream);
             if (err == paNoError) {

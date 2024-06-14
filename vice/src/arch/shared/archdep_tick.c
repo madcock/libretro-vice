@@ -129,7 +129,12 @@ tick_t tick_now(void)
 #ifdef __LIBRETRO__
 static inline void sleep_impl(tick_t sleep_ticks)
 {
+#if defined(SF2000)
+	extern int dly_tsk(unsigned ms);
+	dly_tsk(sleep_ticks / 1000);
+#else
     retro_sleep(sleep_ticks / 1000);
+#endif
 }
 #else
 

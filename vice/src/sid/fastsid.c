@@ -251,7 +251,11 @@ static uint32_t sidreadclocks[9];
 static vreal_t lowPassParam[0x800];
 static vreal_t bandPassParam[0x800];
 static vreal_t filterResTable[16];
+#if !defined(SF2000)
 static const float filterRefFreq = 44100.0;
+#else
+static const float filterRefFreq = 22050.0;
+#endif
 static signed char ampMod1x8[256];
 
 /* manage temporary buffers. if the requested size is smaller or equal to the

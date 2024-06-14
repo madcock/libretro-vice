@@ -3955,7 +3955,11 @@ static void retro_set_core_options()
             { "96000", NULL },
             { NULL, NULL },
          },
+#if !defined(SF2000)
          "48000"
+#else
+         "22050"
+#endif
       },
 #if !defined(__XPET__) && !defined(__XCBM2__)
       {
